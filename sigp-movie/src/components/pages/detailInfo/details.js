@@ -1,4 +1,3 @@
-import { StylesContext, makeStyles } from '@material-ui/styles'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import selectors from '../../Redux/selectors/selectors'
 import styles from '../detailInfo/details.module.scss'
@@ -9,14 +8,8 @@ import actions from '../../Redux/actions/actions'
 const DetailInfo = () => {
   const dispatch = useDispatch()
 
-  const queryFilms = useSelector(selectors.queryFilms)
   const filmById = useSelector(selectors.filmById)
 
-  // useEffect(() => {
-  //   return () => {}
-  // }, [input])
-
-  console.log(filmById)
   const filtered = (({ Ratings, Poster, Response, imdbID, ...rest }) => rest)(
     filmById
   )
@@ -39,7 +32,11 @@ const DetailInfo = () => {
       <Header />
       <section className="container">
         <div className={styles.wrapper}>
-          <img src={filmById.Poster} className={styles.img}></img>
+          <img
+            src={filmById.Poster}
+            className={styles.img}
+            alt={filmById.Title}
+          ></img>
           <ul className={styles.ul}>
             {filmById &&
               Object.keys(filtered).map((oneKey, i) => {

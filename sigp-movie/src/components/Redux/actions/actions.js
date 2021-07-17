@@ -10,8 +10,8 @@ const queryByIdSucces = createAction('queryFilmById/getSucces')
 const queryByIdError = createAction('queryFilmById/getError')
 
 const loadMoreRequest = createAction('loadMore/Request')
-const loadMoreSucces = createAction('queryFilmById/Succes')
-const loadMoreError = createAction('queryFilmById/Error')
+const loadMoreSucces = createAction('loadMore/Succes')
+const loadMoreError = createAction('loadMore/Error')
 
 const deleteFilm = createAction('favoriteFilm/delete')
 const addFilm = createAction('favoriteFilm/add')

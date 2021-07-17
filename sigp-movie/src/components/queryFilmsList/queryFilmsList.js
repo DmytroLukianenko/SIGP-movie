@@ -1,5 +1,4 @@
-import { connect, useSelector } from 'react-redux'
-import selectors from '../Redux/selectors/selectors'
+import { connect } from 'react-redux'
 import {
   CardActionArea,
   Card,
@@ -10,7 +9,6 @@ import {
 import styles from './queryFilmsList.module.scss'
 
 const QueryFilmList = ({ handleClick, queryFilms, classes }) => {
-  // console.log(queryFilms)
   const filmsCard = queryFilms.map(film => {
     return (
       <li className={styles.li} key={film.imdbID}>

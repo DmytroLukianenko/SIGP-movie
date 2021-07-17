@@ -35,6 +35,7 @@ const FavoriteFilmsCard = () => {
 
   useEffect(() => {
     dispatch(actions.deleteFilm(favoriteFilms))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleInfo = e => {

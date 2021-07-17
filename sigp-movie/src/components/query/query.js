@@ -1,30 +1,17 @@
-import {
-  Input,
-  Button,
-  TextField,
-  CardActionArea,
-  CardActions,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import getQueryFilm, {
   getFilmById,
   loadMore,
 } from '../Redux/operations/operations'
 import { connect, useDispatch, useSelector } from 'react-redux'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import selectors from '../Redux/selectors/selectors'
 import { makeStyles } from '@material-ui/core/styles'
 import styles from './query.module.scss'
-import actions from '../Redux/actions/actions'
 import QueryFilmList from '../queryFilmsList/queryFilmsList'
 import QueryDropList from '../queryDropList/queryDropList'
-import { NavLink, useRouteMatch, useLocation } from 'react-router-dom'
 
-// import styles from './query.module.css'
 const useStyles = makeStyles({
   root: {},
   media: {
@@ -41,15 +28,9 @@ const Query = () => {
 
   const [query, setQuery] = useState('')
   const [count, setCount] = useState(2)
-  const [check, setCheck] = useState(false)
 
-  console.log(check)
   const dispatch = useDispatch('')
 
-  const visible = e => {
-    e.preventDefault()
-    setCheck(prevCheck => !prevCheck)
-  }
   const handleClick = e => {
     if (e.nativeEvent.srcElement.offsetParent.id) {
       dispatch(getFilmById(e.nativeEvent.srcElement.offsetParent.id))
@@ -57,17 +38,17 @@ const Query = () => {
     } else return
   }
 
-  const loadMore = () => {
-    setCount(count + 1)
-    dispatch(loadMore(query, count))
-  }
+  // const loadMore = () => {
+  //   setCount(count + 1)
+  //   dispatch(loadMore(query, count))
+  // }
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(getQueryFilm(query))
     }, 250)
     return () => clearTimeout(delayDebounceFn)
-  }, [query, check])
+  }, [query])
 
   return (
     <>
@@ -80,11 +61,15 @@ const Query = () => {
             setQuery(e.target.value)
           }}
         ></input>
-        <Button variant="contained" color="primary" onSubmit={visible}>
+        <Button variant="contained" color="primary">
           Search
         </Button>
         <QueryDropList queryFilms={queryFilms} queryTitles={queryTitles} />
-        {queryError ? <div>{queryError}</div> : ''}
+        {queryError && queryError !== 'Incorrect IMDb ID.' ? (
+          <div>{queryError}</div>
+        ) : (
+          ''
+        )}
 
         <section>
           <QueryFilmList
@@ -96,10 +81,10 @@ const Query = () => {
         </section>
       </form>
 
-      <Button variant="contained" color="primary" onClick={loadMore}>
+      {/* <Button variant="contained" color="primary" onClick={loadMore}>
         {' '}
         load more
-      </Button>
+      </Button> */}
     </>
   )
 }
